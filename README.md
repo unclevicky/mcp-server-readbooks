@@ -7,6 +7,9 @@
 ```bash
 pip install -r requirements.txt
 ```
+## 运行方式
+[参考](https://mp.weixin.qq.com/s/H-UJD54a9NtXX9sD-duREw)
+有详细的测试、配置和运行步骤。
 
 ## 项目结构
 ```plaintext
@@ -26,6 +29,4 @@ src/
 test/
   test_server.py
 
-## 运行方式
-参考https://mp.weixin.qq.com/s/H-UJD54a9NtXX9sD-duREw
-有详细的测试、配置和运行步骤。
+
