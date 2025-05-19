@@ -37,7 +37,8 @@ async def test_readbooks_service():
             print("连接初始化完成")  # 添加调试日志
     
             # 测试pdf
-            pdf_file_path = "D:\\09.coding\\ai\\aicoding\\MCP\\Client\\books2llm\\pdf_resources\\Foundation_of_LLMs.pdf"  # 替换为实际的PDF文件路径
+            #pdf_file_path = "D:\\09.coding\\ai\\aicoding\\MCP\\Client\\books2llm\\resources\\Foundation_of_LLMs.pdf"  # 替换为实际的PDF文件路径
+            pdf_file_path = "D:\\09.coding\\ai\\aicoding\\MCP\\Client\\books2llm\\resources\\易经入门.docx"  # 替换为实际的PDF文件路径
             start_page = 1  # 替换为实际的页码
             end_page = 3  # 替换为实际的页码
             use_ocr = False  # 替换为实际的OCR使用情况
