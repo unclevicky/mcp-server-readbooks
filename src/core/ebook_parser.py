@@ -1,11 +1,10 @@
 import fitz
-import mobi
-import docx
 from pathlib import Path
 from typing import Optional
 from core.ocr_engine import OCRProcessor
 from core.cache_manager import CacheManager
 from utils.file_convert import convert_to_pdf
+from utils.file_convert import convert_ebook
 
 class EbookParser:
     def __init__(self):
@@ -27,6 +26,15 @@ class EbookParser:
                 print("Word 文件转换失败，无法继续解析。")
                 return ""
             ext = '.pdf'
+
+        # 如果是chm或mobi转换为PDF
+        if ext in ('.chm', '.mobi'):
+            file_path = convert_to_pdf(file_path)
+            if file_path is None:
+                print("文件转换失败，无法继续解析。")
+                return ""
+            ext = '.pdf'
+
         total = self._get_total_pages(ext, file_path)
         end = end_page or total
         
@@ -61,13 +69,6 @@ class EbookParser:
         elif ext == '.epub':
             with fitz.open(path) as doc:
                 return doc.page_count
-        elif ext == '.mobi':
-            with mobi.open(path) as mobi_file:
-                return len(mobi_file.read().split('\x0c'))
-        elif ext == '.chm':
-            chm_file = chm.CHMFile()
-            chm_file.LoadCHM(path)
-            return chm_file.GetTopicsCount()
         elif ext == '.txt':
             with open(path, 'r') as f:
                 return (len(f.readlines()) + 49) // 50
@@ -83,8 +84,6 @@ class EbookParser:
             return self._parse_pdf_page(path, page, ocr)
         elif ext == '.epub':
             return self._parse_epub_page(path, page)
-        elif ext == '.mobi':
-            return self._parse_mobi_page(path, page)
         elif ext == '.txt':
             return self._parse_txt_page(path, page)
         else:
@@ -139,10 +138,6 @@ class EbookParser:
     def _parse_epub_page(self, path: str, page: int) -> str:
         with fitz.open(path) as doc:
             return doc[page-1].get_text("text")
-
-    def _parse_mobi_page(self, path: str, page: int) -> str:
-        with mobi.open(path) as mobi_file:
-            return mobi_file.read().split('\x0c')[page-1]
 
     def _parse_txt_page(self, path: str, page: int) -> str:
         with open(path, 'r') as f:
