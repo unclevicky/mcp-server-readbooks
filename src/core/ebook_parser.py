@@ -29,7 +29,7 @@ class EbookParser:
 
         # 如果是chm或mobi转换为PDF
         if ext in ('.chm', '.mobi'):
-            file_path = convert_to_pdf(file_path)
+            file_path = convert_ebook(file_path)
             if file_path is None:
                 print("文件转换失败，无法继续解析。")
                 return ""
@@ -151,5 +151,6 @@ if __name__ == "__main__":
     #file_path = "D:\\09.coding\\ai\\aicoding\\MCP\\Client\\books2llm\\pdf_resources\\Foundation_of_LLMs.pdf"
     #file_path = "D:\\09.coding\\ai\\aicoding\\MCP\\Client\\books2llm\\resources\\易经入门.docx"
     #file_path = "D:\\09.coding\\ai\\aicoding\\MCP\\Client\\books2llm\\resources\\阅读的方法 - 罗振宇.epub"
-    file_path = "D:\\09.coding\\ai\\aicoding\\MCP\\Client\\books2llm\\resources\\哈佛学子“无我”专注力.mobi"
+    #file_path = "D:\\09.coding\\ai\\aicoding\\MCP\\Client\\books2llm\\resources\\哈佛学子“无我”专注力.mobi"
+    file_path = "D:\\09.coding\\ai\\aicoding\\MCP\\Client\\books2llm\\resources\\通往奴役之路.chm"
     print(parser.parse_range(file_path, 1, 3, False))
